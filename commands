@@ -1,0 +1,80 @@
+install aws cli
+
+aws configure
+
+**create aws access key
+
+aws iam create-role --role-name lambda-ex --assume-role-policy-document '{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
+
+aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+aws lambda create-function --function-name lambdaTest2 \
+--zip-file fileb://build/distributions/lambda-test-1.0-SNAPSHOT.zip \
+--handler com.okta.lambdatest.Handler::handleRequest --runtime java11 \
+--role arn:aws:iam::847563072151:role/lambda-ex <-- FILL IN ROLE ARN
+
+aws lambda invoke --function-name lambdaTest2 --payload '{"key": "value"}' --log-type Tail --query 'LogResult' --output text |  base64 -d
+
+aws lambda invoke \
+    --cli-binary-format raw-in-base64-out \
+    --function-name lambdaTest2 \
+    --payload '{ "name": "Bob" }' \
+    response.json && cat response.json
+
+
+andrewcarterhughes@pop-os: aws configure
+AWS Access Key ID [None]: AKIAI7EGUUD2NAE37D7A
+AWS Secret Access Key [None]:  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
+Default region name [None]: us-west-2
+Default output format [None]:
+andrewcarterhughes@pop-os:  iOCo3BD6/yZS79SxEZTAMjsbhMaTSvcWhcMAI2nP ^C
+andrewcarterhughes@pop-os: aws iam create-role --role-name lambda-ex --assume-role-policy-document '{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
+
+{
+    "Role": {
+        "Path": "/",
+        "RoleName": "lambda-ex",
+        "RoleId": "AROA4KVVSEKLRWMVVSKVP",
+        "Arn": "arn:aws:iam::847563072151:role/lambda-ex",
+        "CreateDate": "2020-04-02T23:36:26+00:00",
+        "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "lambda.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                }
+            ]
+        }
+    }
+}
+andrewcarterhughes@pop-os:
+andrewcarterhughes@pop-os: aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+andrewcarterhughes@pop-os: aws lambda create-function --function-name lambdaTest2 \
+> --zip-file fileb://build/distributions/lambda-test-1.0-SNAPSHOT.zip \
+> --handler com.okta.lambdatest.Handler::handleRequest --runtime java11 \
+> --role arn:aws:iam::847563072151:role/lambda-ex
+{
+    "FunctionName": "lambdaTest2",
+    "FunctionArn": "arn:aws:lambda:us-west-2:847563072151:function:lambdaTest2",
+    "Runtime": "java11",
+    "Role": "arn:aws:iam::847563072151:role/lambda-ex",
+    "Handler": "com.okta.Handler::handleRequest",
+    "CodeSize": 2278005,
+    "Description": "",
+    "Timeout": 3,
+    "MemorySize": 128,
+    "LastModified": "2020-04-02T23:40:32.685+0000",
+    "CodeSha256": "y/N9wMWODKiNRG9rx/6rsgdFznaE2GGdbsj8CID++J4=",
+    "Version": "$LATEST",
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "509e9607-e278-4794-86b1-95c49a6f2530",
+    "State": "Active",
+    "LastUpdateStatus": "Successful"
+}
