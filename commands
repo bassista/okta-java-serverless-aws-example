@@ -4,14 +4,15 @@ aws configure
 
 **create aws access key
 
-aws iam create-role --role-name lambda-ex --assume-role-policy-document '{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
+aws iam create-role --role-name lambda-ex --assume-role-policy-document '{"Version": "2020-04-08","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
 
 aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 
 aws lambda create-function --function-name lambdaTest2 \
 --zip-file fileb://build/distributions/lambda-test-1.0-SNAPSHOT.zip \
 --handler com.okta.lambdatest.Handler::handleRequest --runtime java11 \
---role arn:aws:iam::847563072151:role/lambda-ex <-- FILL IN ROLE ARN
+--role arn:aws:iam::847563072151:role/lambda-ex <-- FILL IN ROLE ARN \
+--timeout 30
 
 aws lambda invoke --function-name lambdaTest2 --payload '{"key": "value"}' --log-type Tail --query 'LogResult' --output text |  base64 -d
 
@@ -21,6 +22,11 @@ aws lambda invoke \
     --payload '{ "name": "Bob" }' \
     response.json && cat response.json
 
+aws lambda update-function-code \
+    --function-name  lambdaTest2 \
+    --zip-file fileb://build/distributions/lambda-test-1.0-SNAPSHOT.zip
+
+gradle build && aws lambda update-function-code --function-name  lambdaTest2  --zip-file fileb://build/distributions/lambda-test-1.0-SNAPSHOT.zip
 
 andrewcarterhughes@pop-os: aws configure
 AWS Access Key ID [None]: AKIAI7EGUUD2NAE37D7A
