@@ -1,4 +1,4 @@
-package com.okta.lambdatest;
+package com.okta.serverless.awslambda;
 
 public class LambdaInput {
     public String input = "";

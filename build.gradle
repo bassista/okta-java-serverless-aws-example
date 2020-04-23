@@ -1,7 +1,7 @@
 import jp.classmethod.aws.gradle.lambda.AWSLambdaUpdateFunctionCodeTask
 import jp.classmethod.aws.gradle.lambda.AWSLambdaInvokeTask
 
-group 'com.okta.lambdatest'
+group 'com.okta.serverless.awslambda'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'

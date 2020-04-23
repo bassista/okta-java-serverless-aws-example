@@ -1,4 +1,4 @@
-package com.okta.lambdatest;
+package com.okta.serverless.awslambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -61,6 +61,10 @@ public class Handler implements RequestHandler<APIGatewayProxyRequestEvent, APIG
 
             // Get the headers so we can check the auth header
             Map<String, String> headers = request.getHeaders();
+
+            if (headers == null) {
+                throw new JwtVerificationException("Authorization header empty");
+            }
 
             // Get the auth header
             String authHeader = headers.get("Authorization");

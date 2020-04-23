@@ -10,7 +10,7 @@ aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:p
 
 aws lambda create-function --function-name lambdaTest2 \
 --zip-file fileb://build/distributions/lambda-test-1.0-SNAPSHOT.zip \
---handler com.okta.lambdatest.Handler::handleRequest --runtime java11 \
+--handler Handler::handleRequest --runtime java11 \
 --role arn:aws:iam::847563072151:role/lambda-ex <-- FILL IN ROLE ARN \
 --timeout 30
 
@@ -62,7 +62,7 @@ andrewcarterhughes@pop-os: aws iam attach-role-policy --role-name lambda-ex --po
 
 andrewcarterhughes@pop-os: aws lambda create-function --function-name lambdaTest2 \
 > --zip-file fileb://build/distributions/lambda-test-1.0-SNAPSHOT.zip \
-> --handler com.okta.lambdatest.Handler::handleRequest --runtime java11 \
+> --handler Handler::handleRequest --runtime java11 \
 > --role arn:aws:iam::847563072151:role/lambda-ex
 {
     "FunctionName": "lambdaTest2",

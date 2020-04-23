@@ -1,4 +1,4 @@
-package com.okta.lambdatest;
+package com.okta.serverless.awslambda;
 
 import java.io.IOException;
 import java.io.InputStream;
