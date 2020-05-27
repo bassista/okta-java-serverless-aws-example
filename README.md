@@ -6,10 +6,10 @@ Please read [Serverless Java with Amazon Web Services](https://developer.okta.co
 
 **Prerequisites**:
 
-- Java 11: Tip: use [SDKMAN](https://sdkman.io/)!
-- An [Okta Developer Account](https://developer.okta.com/signup/)
+- [Java 11](https://sdkman.io/)
 - [HTTPie](https://httpie.org/docs#installation)
-- [Amazon Web Services](https://aws.amazon.com/) account with billing activated
+- An [Okta Developer Account](https://developer.okta.com/signup/)
+- An [Amazon Web Services](https://aws.amazon.com/) account with billing activated
 
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users + roles in any application.
 
